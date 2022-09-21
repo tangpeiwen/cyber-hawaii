@@ -112,7 +112,7 @@ const DataTable = () => {
 
       <tbody>
         {
-          data.data.map((item: Collection) => (
+          data.map((item: Collection) => (
             <tr className='hover:bg-gray-100 cursor-pointer rounded overflow-hidden' key={item.collection}>
               <td className='p-2 truncate rounded-l'>
                 <div className='flex flex-row items-center gap-2'>
