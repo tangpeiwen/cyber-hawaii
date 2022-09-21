@@ -6,6 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const mongo = await connect()
     const data = await mongo.db('nft').collection('temp').find({}).toArray()
     // res.json(data)
-    return res.status(200).send({data})
+    return res.status(200).json(data)
 }
 
