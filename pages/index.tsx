@@ -8,7 +8,7 @@ import SortIcon from '../components/SortIcon'
 
 type Collection = {
   collection: string,
-  daily_volume: number
+  daily_volume: number,
   logo: string,
   risk_factor?: number,
   sudo_arbitrage_profit?: number,
