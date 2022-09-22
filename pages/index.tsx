@@ -8,6 +8,7 @@ import SortIcon from '../components/SortIcon'
 
 type Collection = {
   collection: string,
+  daily_volume: number
   logo: string,
   risk_factor?: number,
   sudo_arbitrage_profit?: number,
@@ -83,6 +84,12 @@ const DataTable = () => {
           <th className='p-2'>Collection</th>
           <th className='p-2 text-right w-40'>
             <div className='flex flex-row items-center gap-1 justify-end'>
+              Daily Volume
+              <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'daily_volume' ? sort.value : 0} onClick={() => changeSort('daily_volume')} />
+            </div>
+          </th>
+          <th className='p-2 text-right w-40'>
+            <div className='flex flex-row items-center gap-1 justify-end'>
               Risk Factor
               <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'risk_factor' ? sort.value : 0} onClick={() => changeSort('risk_factor')} />
             </div>
@@ -118,6 +125,12 @@ const DataTable = () => {
                 <div className='flex flex-row items-center gap-2'>
                   <img src={item.logo} alt="" className='w-8 h-8 rounded-full bg-gray-200' />
                   <span className='font-medium'>{item.collection}</span>
+                </div>
+              </td>
+              <td className='py-2 px-6 text-right'>
+                <div className='flex flex-row items-center gap-1 justify-end'>
+                  <EthIcon className='w-4 h-4' />
+                  <span>{item.daily_volume}</span>
                 </div>
               </td>
               <td className='py-2 px-6 text-right'>
