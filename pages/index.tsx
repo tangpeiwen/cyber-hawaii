@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import EthIcon from '../components/EthIcon'
 import LoadingIcon from '../components/LoadingIcon'
 import SortIcon from '../components/SortIcon'
+import Link from 'next/link';
+
 
 type Collection = {
   collection: string,
@@ -82,7 +84,7 @@ const DataTable = () => {
       <thead>
         <tr className='text-left text-slate-400'>
           <th className='p-2'>Collection</th>
-          <th className='p-2 text-right w-42'>
+          <th className='p-2 text-right w-40'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Daily Volume
               <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'daily_volume' ? sort.value : 0} onClick={() => changeSort('daily_volume')} />
@@ -218,7 +220,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>OpenSea Data</title>
+        <title>Top Collections</title>
       </Head>
 
       {
@@ -226,9 +228,14 @@ const Home: NextPage = () => {
           <div className='w-full px-8 py-4'>
             <div className='flex flex-row items-center justify-between'>
               <span className='px-2 text-2xl font-medium'>Top Collections</span>
+           
+                <a className="text-lg font-bold text-blue-500 hover:text-sky-500/40" href="/bluechips">Click to See Bluechips Performance!</a>
+
+
               <div className='flex flex-row items-center gap-4'>
                 <span className='bg-gray-200 py-2 px-4 rounded-md text-gray-700'>Address: {address}</span>
                 <button className='bg-red-500 px-4 py-2 rounded-md text-white font-medium hover:bg-red-600' onClick={disconnect}>Disconnect</button>
+                
               </div>
             </div>
             <div className='border rounded-md p-2 mt-4 min-h-[20rem]'>
