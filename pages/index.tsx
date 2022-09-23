@@ -82,7 +82,7 @@ const DataTable = () => {
       <thead>
         <tr className='text-left text-slate-400'>
           <th className='p-2'>Collection</th>
-          <th className='p-2 text-right w-40'>
+          <th className='p-2 text-right w-42'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Daily Volume
               <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'daily_volume' ? sort.value : 0} onClick={() => changeSort('daily_volume')} />
