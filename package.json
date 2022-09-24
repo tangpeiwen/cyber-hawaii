@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.2",
     "@thirdweb-dev/auth": "^1.0.8",
     "@thirdweb-dev/react": "^2.9.7",
     "@thirdweb-dev/sdk": "^2.4.9",
