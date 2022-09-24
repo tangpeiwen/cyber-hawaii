@@ -172,35 +172,12 @@ const DataTable2 = () => {
   )
 }
 
-function MyTabs() {
-    return (
-        <Tab.Group>
-        <Tab.List>
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
-            <Tab>Tab 3</Tab>
-        </Tab.List>
-        <Tab.Panels>
-            <Tab.Panel>Content 1</Tab.Panel>
-            <Tab.Panel>Content 2</Tab.Panel>
-            <Tab.Panel>Content 3</Tab.Panel>
-        </Tab.Panels>
-        </Tab.Group>
-    )
-    }
-
 function Bluechip() {
-
     return (
       <div>
         <Head>
           <title>Blue Chips</title>
         </Head>
-        
-
-        
-       
-
         <div className='w-full px-8 py-4 space-y-3'>
             <div className='flex flex-row items-center justify-between'>
               <span className='px-2 font-serif text-2xl font-bold'>Top Collections</span>
@@ -221,13 +198,10 @@ function Bluechip() {
             <div className='border rounded-md p-2 mt-4 min-h-[20rem]'>
                 <DataTable2 />
             </div>
-        </div>
-        
-  
+        </div>  
       </div> )
   }
   
-
 export default Bluechip
 
 
