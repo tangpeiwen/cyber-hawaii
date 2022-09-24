@@ -227,17 +227,28 @@ const Home: NextPage = () => {
         address ? (
           <div className='w-full px-8 py-4'>
             <div className='flex flex-row items-center justify-between'>
-              <span className='px-2 text-2xl font-medium'>Top Collections</span>
-           
-                <a className="text-lg font-bold text-blue-500 hover:text-sky-500/40" href="/bluechips">Click to See Bluechips Performance!</a>
+              <span className='px-2 text-2xl font-medium'>Top Collections</span>           
 
 
               <div className='flex flex-row items-center gap-4'>
                 <span className='bg-gray-200 py-2 px-4 rounded-md text-gray-700'>Address: {address}</span>
                 <button className='bg-red-500 px-4 py-2 rounded-md text-white font-medium hover:bg-red-600' onClick={disconnect}>Disconnect</button>
-                
               </div>
             </div>
+            
+            <ul className="flex flex-wrap text-m font-normal text-center text-gray-500 dark:text-gray-400">
+             <li className="mr-2">
+               <a href="/" className="shadow-lg inline-block py-1.5 px-3 text-white bg-cyan-500 shadow-cyan-500/50 rounded-lg active" 
+                 aria-current="page">Top Collections</a>
+             </li>
+
+             <li className="mr-2">
+               <a href="/bluechips" className="inline-block py-1.5 px-4 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white" 
+                 aria-current="page">Blue-Chip Collections</a>
+             </li>
+
+            </ul>
+            
             <div className='border rounded-md p-2 mt-4 min-h-[20rem]'>
               <DataTable />
             </div>
