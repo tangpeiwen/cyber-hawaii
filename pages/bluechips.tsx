@@ -148,8 +148,7 @@ const DataTable = () => {
             
               <td className='p-2 text-right rounded-r text-xs'>
               {
-                (typeof item.conf_ind_7d === 'number') ? (
-                  <>
+
                     {
                       'low' === item.confidence_level_7d && <span className='px-3 py-1 rounded-full bg-green-200 text-green-600'>Low</span>
                     }
@@ -157,10 +156,9 @@ const DataTable = () => {
                       'high' === item.confidence_level_7d && <span className='px-3 py-1 rounded-full bg-red-200 text-red-600'>High</span>
                     }
                     {
-                      !item.confidence_level_7d && '--'
+                      '--'
                     }
-                  </>
-                ) : '--'
+
               }
               </td>
               
@@ -171,7 +169,46 @@ const DataTable = () => {
     </table>
   )
 }
-export default DataTable
+
+function Bluechip() {
+
+    return (
+      <div>
+        <Head>
+          <title>Blue Chips</title>
+        </Head>
+        
+       
+
+        <div className='w-full px-8 py-4 space-y-3'>
+            <div className='flex flex-row items-center justify-between'>
+              <span className='px-2 font-serif text-2xl font-bold'>Top Collections</span>
+            </div>
+
+            <ul className="flex flex-wrap text-m font-normal text-center text-gray-500 dark:text-gray-400">
+              <li className="mr-2">
+                <a href="/" className="inline-block py-2 px-4 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white" 
+                    aria-current="page">Top Volume</a>
+              </li>
+              <li className="mr-2">
+                <a href="/bluechips" className="shadow-lg inline-block py-2 px-3 text-white bg-cyan-500 shadow-cyan-500/50 rounded-lg active" 
+                    aria-current="page">Blue-Chip Collections</a>
+              </li>
+
+            </ul>
+
+            <div className='border rounded-md p-2 mt-4 min-h-[20rem]'>
+                <DataTable2 />
+            </div>
+        </div>
+        
+  
+      </div> )
+  }
+  
+
+
+export default Bluechip
 
 
 
