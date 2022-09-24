@@ -382,7 +382,7 @@ const BeforeAccess = () => {
 
 }
 
-function classNames(classes:any) {
+function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
