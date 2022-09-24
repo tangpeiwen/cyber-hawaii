@@ -178,8 +178,6 @@ function Bluechip() {
           <title>Blue Chips</title>
         </Head>
         
-       
-
         <div className='w-full px-8 py-4 space-y-3'>
             <div className='flex flex-row items-center justify-between'>
               <span className='px-2 font-serif text-2xl font-bold'>Top Collections</span>
