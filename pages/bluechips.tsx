@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react'
 import EthIcon from '../components/EthIcon'
 import LoadingIcon from '../components/LoadingIcon'
 import SortIcon from '../components/SortIcon'
-import React from "react"
-import { Tab } from '@headlessui/react'
 
 type Bluechips = {
     bluechips: string,
