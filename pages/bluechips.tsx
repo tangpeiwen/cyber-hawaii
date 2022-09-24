@@ -180,7 +180,7 @@ function Bluechip() {
         </Head>
         <div className='w-full px-8 py-4 space-y-3'>
             <div className='flex flex-row items-center justify-between'>
-              <span className='px-2 font-serif text-2xl font-bold'>Top Collections</span>
+              <span className='px-2 text-2xl font-bold'>Top Collections</span>
             </div>
 
             <ul className="flex flex-wrap text-m font-normal text-center text-gray-500 dark:text-gray-400">
