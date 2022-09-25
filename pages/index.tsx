@@ -182,7 +182,7 @@ const DataTable = ({setTime}) => {
                   ) : '--'
                 }
               </td>
-              <td className='p-2 text-right'>
+              <td className='py-2 px-6 text-right text-s'>
                 
                 {typeof item.confidence_index === 'number' ? 
                   <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
