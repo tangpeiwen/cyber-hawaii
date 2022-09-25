@@ -20,6 +20,8 @@ type Collection = {
   sudo_offer?: number,
   confidence_index?: number,
   confidence_level?: string,
+  link: string,
+  time?: string
 }
 
 type Sort = {
@@ -29,7 +31,7 @@ type Sort = {
 
 let initData: Collection[] = []
 
-const DataTable = () => {
+const DataTable = ({setTime}) => {
 
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState<Collection[]>([])
@@ -39,6 +41,11 @@ const DataTable = () => {
     fetch('/api/database').then(resp => resp.json()).then(data => {
       initData = data
       setData(data)
+      data.forEach(element => {
+        if (element.time){
+          return setTime(element.time);
+        }
+      })
       setLoading(false)
     })
   }, [])
@@ -84,37 +91,37 @@ const DataTable = () => {
 
     <table className="table-fixed w-full text-sm">
       <thead>
-        <tr className='text-left text-slate-400 w-60'>
+        <tr className='text-left text-slate-500 uppercase text-xs font-normal'>
           <th className='p-2'>Collection</th>
           <th className='p-2 text-right w-30'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Daily Volume
-              <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'daily_volume' ? sort.value : 0} onClick={() => changeSort('daily_volume')} />
+              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'daily_volume' ? sort.value : 0} onClick={() => changeSort('daily_volume')} />
             </div>
           </th>
           <th className='p-2 text-right w-30'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Risk Factor
-              <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'risk_factor' ? sort.value : 0} onClick={() => changeSort('risk_factor')} />
+              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'risk_factor' ? sort.value : 0} onClick={() => changeSort('risk_factor')} />
             </div>
           </th>
           <th className='p-2 text-right w-48'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Sudo Arbitrage Profit
-              <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'sudo_arbitrage_profit' ? sort.value : 0} onClick={() => changeSort('sudo_arbitrage_profit')} />
+              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'sudo_arbitrage_profit' ? sort.value : 0} onClick={() => changeSort('sudo_arbitrage_profit')} />
             </div>
           </th>
           <th className='p-2 text-right w-48'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               OpenSea Floor Price
-              <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'opensea_floor_price' ? sort.value : 0} onClick={() => changeSort('opensea_floor_price')} />
+              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'opensea_floor_price' ? sort.value : 0} onClick={() => changeSort('opensea_floor_price')} />
             </div>
           </th>
           <th className='p-2 text-right w-28'>Sudo Offer</th>
           <th className='p-2 text-right w-30'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Confidence Index
-              <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'confidence_index' ? sort.value : 0} onClick={() => changeSort('confidence_index')} />
+              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'confidence_index' ? sort.value : 0} onClick={() => changeSort('confidence_index')} />
             </div>
           </th>
           <th className='p-2 text-right w-30'>Confidence Level</th>
@@ -126,14 +133,14 @@ const DataTable = () => {
           data.map((item: Collection) => (
             <tr className='hover:bg-gray-100 cursor-pointer rounded overflow-hidden' key={item.collection}>
               <td className='p-2 truncate rounded-l'>
-                <div className='flex flex-row items-center gap-2'>
+                <div className='flex flex-row items-center gap-2' onClick={() => { window.open(item.link,'_blank')}}>
                   <img src={item.logo} alt="" className='w-8 h-8 rounded-full bg-gray-200' />
                   <span className='font-medium'>{item.collection}</span>
                 </div>
               </td>
               <td className='py-2 px-6 text-right'>
                 <div className='flex flex-row items-center gap-1 justify-end'>
-                  <EthIcon className='w-4 h-4' />
+                  <EthIcon className='w-3.5 h-3.5' />
                   <span>{item.daily_volume}</span>
                 </div>
               </td>
@@ -155,14 +162,13 @@ const DataTable = () => {
                       {
                         item.sudo_arbitrage_profit > 0 && <span className='text-green-500'>+{item.sudo_arbitrage_profit.toFixed(2)}</span>
                       }
-
                     </>
                   ) : '--'
                 }
                 </td>
               <td className='py-2 px-6 text-right'>
                 <div className='flex flex-row items-center gap-1 justify-end'>
-                  <EthIcon className='w-4 h-4' />
+                  <EthIcon className='w-3.5 h-3.5' />
                   <span>{item.opensea_floor_price && item.opensea_floor_price.toFixed(2)}</span>
                 </div>
               </td>
@@ -170,15 +176,19 @@ const DataTable = () => {
                 {
                   item.sudo_offer ? (
                     <div className='flex flex-row items-center gap-1 justify-end'>
-                      <EthIcon className='w-4 h-4' />
+                      <EthIcon className='w-3.5 h-3.5' />
                       <span>{item.sudo_offer.toFixed(2)}</span>
                     </div>
                   ) : '--'
                 }
               </td>
               <td className='p-2 text-right'>
-                {
-                  typeof item.confidence_index === 'number' ? item.confidence_index : '--'
+                
+                {typeof item.confidence_index === 'number' ? 
+                  <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                    <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.confidence_index}}></div>
+                  </div>   
+                   : '--'
                 }
               </td>
               <td className='p-2 text-right rounded-r text-xs'>
@@ -201,8 +211,13 @@ const DataTable = () => {
 }
 
 type Bluechips = {
-  bluechips: string,
+  nickname: string,
+  collection: string,
   logo: string,
+  link: string,
+  floor: number,
+  volume_1d: number,
+  change_1d : number,
   eth_24h: number,
   eth_7d: number,
   weth_24h: number,
@@ -225,11 +240,14 @@ const DataTable2 = () => {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState<Bluechips[]>([])
   const [sort, setSort] = useState<Sort2 | undefined>(undefined)
+  const [progress, setPro] = useState("")
+
 
   useEffect(() => {
     fetch('/api/bluechips').then(resp => resp.json()).then(data => {
       initData2 = data
       setData(data)
+      setPro(data.conf_ind_24h)
       setLoading(false)
     })
   }, [])
@@ -275,27 +293,45 @@ return (
 
   <table className="table-fixed w-full text-sm">
     <thead>
-      <tr className='text-left text-slate-400'>
-        <th className='w-1/4 px-4 py-2'>Collection</th>
+      <tr className='text-left text-slate-500 uppercase text-xs font-normal'>
+        <th className='p-2'>Collection</th>
+        <th className='p-2 text-right w-35'>
+            <div className='flex flex-row items-center gap-1 justify-end'>
+              Floor Price
+              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'floor' ? sort.value : 0} onClick={() => changeSort2('floor')} />
+            </div>
+        </th>
+        <th className='p-2 text-right w-35'>
+            <div className='flex flex-row items-center gap-1 justify-end'>
+              24h Volume
+              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'volume_1d' ? sort.value : 0} onClick={() => changeSort2('volume_1d')} />
+            </div>
+        </th>
+        <th className='p-2 text-right w-30'>
+            <div className='flex flex-row items-center gap-1 justify-end'>
+              %Change
+              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'change_1d' ? sort.value : 0} onClick={() => changeSort2('change_1d')} />
+            </div>
+        </th>
         
-        <th className='px-4 py-2'>
+        <th className='p-2 text-right w-48'>
           <div className='flex flex-row items-center gap-1 justify-end'>
             24h Confidence Index
-            <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'conf_ind_24h' ? sort.value : 0} onClick={() => changeSort2('conf_ind_24h')} />
+            <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'conf_ind_24h' ? sort.value : 0} onClick={() => changeSort2('conf_ind_24h')} />
           </div>
         </th>
-        <th className='px-4 py-2'>
+        <th className='p-2 text-right w-48'>
           <div className='flex flex-row items-center gap-1 justify-end'>
             24h Confidence Level
           </div>
         </th>
-        <th className='px-4 py-2'>
+        <th className='p-2 text-right w-48'>
           <div className='flex flex-row items-center gap-1 justify-end'>
             7d Confidence Index
-            <SortIcon className='w-4 h-4 cursor-pointer' sortValue={sort && sort.key === 'conf_ind_7d' ? sort.value : 0} onClick={() => changeSort2('conf_ind_7d')} />
+            <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'conf_ind_7d' ? sort.value : 0} onClick={() => changeSort2('conf_ind_7d')} />
           </div>
         </th>
-        <th className='px-4 py-2'>
+        <th className='p-2 text-right w-48'>
           <div className='flex flex-row items-center gap-1 justify-end'>
             7d Confidence Level
           </div>
@@ -306,16 +342,56 @@ return (
     <tbody>
       {
         data.map((item: Bluechips) => (
-          <tr className='hover:bg-gray-100 cursor-pointer rounded overflow-hidden' key={item.bluechips}>
+          <tr className='hover:bg-gray-100 cursor-pointer rounded overflow-hidden' key={item.collection}>
             <td className='p-2 truncate rounded-l'>
-              <div className='flex flex-row items-center gap-2'>
+              <div className='flex flex-row items-center gap-2' onClick={() => { window.open(item.link,'_blank')}}>
                 <img src={item.logo} alt="" className='w-8 h-8 rounded-full bg-gray-200' />
-                <span className='font-medium'>{item.bluechips}</span>
+                <span className='font-medium'>{item.collection}</span>
               </div>
             </td>
-          
             <td className='py-2 px-6 text-right'>
-              {item.conf_ind_24h === 0 ? '--' : item.conf_ind_24h}          
+              <div className='flex flex-row items-center gap-1 justify-end'>
+                <EthIcon className='w-3.5 h-3.5' />
+                <span>{
+                  item.floor  ? item.floor.toFixed(2) : item.floor === 0 ? '0.00' : '--'
+                }
+                </span>
+              </div>
+            </td>
+            <td className='py-2 px-6 text-right'>
+                <div className='flex flex-row items-center gap-1 justify-end'>
+                  <EthIcon className='w-3.5 h-3.5' />
+                  <span>{item.volume_1d && item.volume_1d.toFixed(1)}</span>
+                </div>
+            </td>
+            <td className='py-2 px-6 text-right'>
+                {
+                  (typeof item.change_1d === 'number') ? (
+                    <>
+                      {
+                        item.change_1d < 0 && <span className='text-red-500'>{(item.change_1d * 100).toFixed(2)+ '%'}</span>
+                      }
+                       {
+                        item.change_1d === 0 && <span>--</span>
+                      }
+                      {
+                        item.change_1d > 0 && <span className='text-green-500'>+{(item.change_1d * 100).toFixed(2)+ '%'}</span>
+                      }
+
+                    </>
+                  ) : '--'
+                }
+                </td>
+            <td className='py-2 px-6 text-right'>
+              {item.conf_ind_24h === 0 ? '--' : 
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                  <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.conf_ind_24h}}></div>
+                </div>    
+              }
+            
+              {/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.conf_ind_24h}}></div>
+              </div>         */}
             </td>
           
             <td className='p-2 text-right rounded-r text-xs'>
@@ -324,6 +400,9 @@ return (
                 <>
                   {
                     'low' === item.confidence_level_24h && <span className='px-3 py-1 rounded-full bg-green-200 text-green-600'>Low</span>
+                  }
+                   {
+                    '--' === item.confidence_level_24h && <span>--</span>
                   }
                    {
                     'high' === item.confidence_level_24h && <span className='px-3 py-1 rounded-full bg-red-200 text-red-600'>High</span>
@@ -337,7 +416,12 @@ return (
             </td>
 
             <td className='py-2 px-6 text-right text-s'>
-              {item.conf_ind_7d === 0 ? '--' : item.conf_ind_7d}          
+              {item.conf_ind_7d === 0 ? '--' : 
+                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                  <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.conf_ind_7d}}></div>
+                </div>    
+              }
+              
             </td>
           
             <td className='p-2 text-right rounded-r text-xs'>
@@ -390,6 +474,8 @@ const Home: NextPage = () => {
   const address = useAddress()
   const disconnect = useDisconnect()
   let [categories] = useState({'Top Collections':[], 'Blue-Chip Collections':[]})
+  const [time, setTime] = useState("")
+
 
   return (
     <div>
@@ -404,12 +490,16 @@ const Home: NextPage = () => {
               <span className='px-2 font-serif text-2xl font-bold'>Top Collections</span>
 
               <div className='flex flex-row items-center'>
+
                 <span className='bg-gray-200 py-2 px-4 rounded-md text-gray-700'>Address: {address}</span>
                 <button className='bg-red-500 px-4 py-2 rounded-md text-white font-medium hover:bg-red-600' onClick={disconnect}>Disconnect</button>
               </div>
             </div>
+            <div className='absolute top-20 right-20 w-72 font-serif text-medium font-medium italic bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500'>Last Updated Time: {time}</div>
+            {/* <div className='absolute top-20 right-20 w-72 font-serif text-medium font-medium italic text-rose-400/70'>Last Updated Time: {time}</div> */}
 
             <div className="w-full px-8 py-4 space-y-1">
+                
                 <Tab.Group>
                   <Tab.List className="flex flex-wrap text-m font-normal text-center text-gray-500 dark:text-gray-400">
                     {Object.keys(categories).map((category) => (
@@ -420,8 +510,8 @@ const Home: NextPage = () => {
                             'mr-2',
                             // 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
                               selected
-                                ? 'outline-none shadow-lg inline-block py-1.5 px-3 text-white bg-cyan-500 shadow-cyan-500/50 rounded-lg active'
-                                : 'inline-block py-1.5 px-4 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white'
+                                ? 'outline-none shadow-lg inline-block py-1.5 px-3 text-white bg-cyan-500 shadow-cyan-500/30 rounded-lg active'
+                                : 'outline-none inline-block py-1.5 px-4 rounded-lg hover:text-gray-900 hover:bg-cyan-500/10 dark:hover:bg-gray-800 dark:hover:text-white'
                             )
                         }
                       >
@@ -432,7 +522,7 @@ const Home: NextPage = () => {
                   <Tab.Panels>
                     <Tab.Panel>
                         <div className='border rounded-md p-2 mt-4 min-h-[20rem]'>
-                            <DataTable />
+                            <DataTable setTime={setTime}/>
                         </div>
                     </Tab.Panel>
                     <Tab.Panel>
@@ -455,6 +545,4 @@ const Home: NextPage = () => {
     </div >
   )
 }
-
-
 export default Home
