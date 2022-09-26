@@ -93,13 +93,13 @@ const DataTable = ({setTime}) => {
       <thead>
         <tr className='text-left text-slate-500 uppercase text-xs font-normal'>
           <th className='p-2'>Collection</th>
-          <th className='p-2 text-right w-30'>
+          <th className='p-2 text-right w-40'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Daily Volume
               <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'daily_volume' ? sort.value : 0} onClick={() => changeSort('daily_volume')} />
             </div>
           </th>
-          <th className='p-2 text-right w-30'>
+          <th className='p-2 text-right w-48'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Risk Factor
               <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'risk_factor' ? sort.value : 0} onClick={() => changeSort('risk_factor')} />
@@ -111,20 +111,20 @@ const DataTable = ({setTime}) => {
               <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'sudo_arbitrage_profit' ? sort.value : 0} onClick={() => changeSort('sudo_arbitrage_profit')} />
             </div>
           </th>
-          <th className='p-2 text-right w-48'>
+          <th className='p-2 text-right w-40'>
             <div className='flex flex-row items-center gap-1 justify-end'>
-              OpenSea Floor Price
+              Floor Price
               <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'opensea_floor_price' ? sort.value : 0} onClick={() => changeSort('opensea_floor_price')} />
             </div>
           </th>
-          <th className='p-2 text-right w-28'>Sudo Offer</th>
-          <th className='p-2 text-right w-30'>
+          <th className='p-2 text-right w-32'>Sudo Offer</th>
+          <th className='p-2 text-right w-40'>
             <div className='flex flex-row items-center gap-1 justify-end'>
               Confidence Index
               <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'confidence_index' ? sort.value : 0} onClick={() => changeSort('confidence_index')} />
             </div>
           </th>
-          <th className='p-2 text-right w-30'>Confidence Level</th>
+          <th className='p-2 text-right w-40'>Confidence Level</th>
         </tr>
       </thead>
 
@@ -182,10 +182,10 @@ const DataTable = ({setTime}) => {
                   ) : '--'
                 }
               </td>
-              <td className='p-2 text-right'>
+              <td className='py-2 px-6 text-right'>
                 
                 {typeof item.confidence_index === 'number' ? 
-                  <div className="w-30 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                     <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.confidence_index}}></div>
                   </div>   
                    : '--'
