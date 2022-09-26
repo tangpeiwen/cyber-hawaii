@@ -501,7 +501,7 @@ const Home: NextPage = () => {
                 <button className='bg-red-500 px-4 py-2 rounded-md text-white font-medium hover:bg-red-600' onClick={disconnect}>Disconnect</button>
               </div>
             </div>
-            <div className='absolute top-20 right-20 w-72 font-serif text-medium font-medium italic bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500'>Last Updated Time: {time}</div>
+            <div className='absolute top-20 right-20 w-72 font-serif text-medium font-medium italic bg-clip-text text-transparent bg-gradient-to-r from-violet-500/80 to-fuchsia-500/80'>Last Updated Time: {time}</div>
             {/* <div className='absolute top-20 right-20 w-72 font-serif text-medium font-medium italic text-rose-400/70'>Last Updated Time: {time}</div> */}
 
             <div className="w-full px-8 py-4 space-y-1">
