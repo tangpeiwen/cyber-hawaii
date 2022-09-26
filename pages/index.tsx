@@ -415,7 +415,7 @@ return (
             }
             </td>
 
-            <td className='py-2 px-6 text-right text-s'>
+            <td className='py-2 px-6 text-right'>
               {item.conf_ind_7d === 0 ? '--' : 
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                   <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.conf_ind_7d}}></div>
