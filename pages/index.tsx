@@ -425,7 +425,7 @@ return (
 
             <td className='py-2 px-6 text-right'>
               {
-                  typeof item.confidence_level_7d === '--' ? '--': item.confidence__level_7d
+                  item.confidence_level_7d === '--' ? '--': item.confidence__level_7d
                 }
               
             </td>
