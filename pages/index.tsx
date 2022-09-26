@@ -183,13 +183,25 @@ const DataTable = ({setTime}) => {
                 }
               </td>
               <td className='py-2 px-6 text-right'>
-                
-                {typeof item.confidence_index === 'number' ? 
-                  <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                    <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.confidence_index}}></div>
-                  </div>   
-                   : '--'
+                {
+                  (item.confidence_index !==0 && item.confidence_level !== '--') ? (
+                    <>
+                      {
+                        'low'===item.confidence_level && 
+                        <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                          <div className="bg-gradient-to-r from-lime-500/70 to-green-500/70 rounded-full text-xs font-medium text-white text-center p-0.5 leading-none" style={{width:item.confidence_index}}>{item.confidence_index}</div>
+                        </div>  
+                      }
+                      {
+                        'high'===item.confidence_level && 
+                        <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                          <div className="bg-gradient-to-r from-pink-500/70 to-red-500/70 rounded-full text-xs font-medium text-white text-center p-0.5 leading-none" style={{width:item.confidence_index}}>{item.confidence_index}</div>
+                        </div>  
+                      }
+                    </>
+                  ):'--'
                 }
+                
               </td>
               <td className='p-2 text-right rounded-r text-xs'>
                 {
@@ -383,15 +395,11 @@ return (
                 }
                 </td>
             <td className='py-2 px-6 text-right'>
-              {item.conf_ind_24h === 0 ? '--' : 
-                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                  <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.conf_ind_24h}}></div>
-                </div>    
+              {item.conf_ind_24h === 0 ? '--' : item.conf_ind_24h
+                
               }
             
-              {/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.conf_ind_24h}}></div>
-              </div>         */}
+              
             </td>
           
             <td className='p-2 text-right rounded-r text-xs'>
@@ -416,11 +424,9 @@ return (
             </td>
 
             <td className='py-2 px-6 text-right'>
-              {item.conf_ind_7d === 0 ? '--' : 
-                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                  <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.conf_ind_7d}}></div>
-                </div>    
-              }
+              {
+                  typeof item.confidence_level_7d === '--' ? '--': item.confidence__level_7d
+                }
               
             </td>
           
