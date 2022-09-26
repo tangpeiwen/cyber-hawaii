@@ -185,7 +185,7 @@ const DataTable = ({setTime}) => {
               <td className='p-2 text-right'>
                 
                 {typeof item.confidence_index === 'number' ? 
-                  <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                  <div className="w-30 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                     <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.confidence_index}}></div>
                   </div>   
                    : '--'
