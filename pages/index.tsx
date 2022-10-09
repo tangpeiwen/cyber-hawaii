@@ -154,13 +154,13 @@ const DataTable = ({setTime}) => {
                   (item.sudo_offer && typeof item.sudo_arbitrage_profit === 'number') ? (
                     <>
                       {
-                        item.sudo_arbitrage_profit < 0 && <span className='text-red-500'>{item.sudo_arbitrage_profit.toFixed(2)}</span>
+                        item.sudo_arbitrage_profit < 0 && <span className='text-green-500'>{item.sudo_arbitrage_profit.toFixed(2)}</span>
                       }
                        {
                         item.sudo_arbitrage_profit === 0 && <span>{item.sudo_arbitrage_profit.toFixed(2)}</span>
                       }
                       {
-                        item.sudo_arbitrage_profit > 0 && <span className='text-green-500'>+{item.sudo_arbitrage_profit.toFixed(2)}</span>
+                        item.sudo_arbitrage_profit > 0 && <span className='text-red-500'>+{item.sudo_arbitrage_profit.toFixed(2)}</span>
                       }
                     </>
                   ) : '--'
@@ -188,27 +188,34 @@ const DataTable = ({setTime}) => {
                     <>
                       {
                         'low'===item.confidence_level && 
-                        <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                          <div className="bg-gradient-to-r from-lime-500/70 to-green-500/70 rounded-full text-xs font-medium text-white text-center p-0.5 leading-none" style={{width:item.confidence_index}}>{item.confidence_index}</div>
+                        <div className="w-100 bg-gray-200 rounded-full dark:bg-gray-700" style={{width: 100}}>
+                          <div className="bg-gradient-to-r from-pink-500/70 to-red-500/70 rounded-full text-xs font-medium text-white text-center p-0.5 leading-none" style={{width:item.confidence_index}}>{item.confidence_index}</div>
                         </div>  
                       }
                       {
                         'high'===item.confidence_level && 
-                        <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                          <div className="bg-gradient-to-r from-pink-500/70 to-red-500/70 rounded-full text-xs font-medium text-white text-center p-0.5 leading-none" style={{width:item.confidence_index}}>{item.confidence_index}</div>
+                        <div className="w-100 bg-gray-200 rounded-full dark:bg-gray-700" style={{width: 100}}>
+                          <div className="bg-gradient-to-r from-lime-500/70 to-green-500/70 rounded-full text-xs font-medium text-white text-center p-0.5 leading-none" style={{width:item.confidence_index}}>{item.confidence_index}</div>
                         </div>  
                       }
                     </>
                   ):'--'
                 }
-                
+                {/* {item.confidence_index === 0 ? '--':
+                  <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                    <div className="bg-gradient-to-r from-purple-500/70 to-pink-500/70 h-2.5 rounded-full" style={{width:item.confidence_index}}></div>
+                  </div>   
+                } */}
               </td>
               <td className='p-2 text-right rounded-r text-xs'>
                 {
-                  'low' === item.confidence_level && <span className='px-3 py-1 rounded-full bg-green-200 text-green-600'>Low</span>
+                  'low' === item.confidence_level && <span className='px-3 py-1 rounded-full bg-red-200 text-red-600'>Low</span>
                 }
                 {
-                  'high' === item.confidence_level && <span className='px-3 py-1 rounded-full bg-red-200 text-red-600'>High</span>
+                  '--' === item.confidence_level && <span>--</span>
+                }
+                {
+                  'high' === item.confidence_level && <span className='px-3 py-1 rounded-full bg-green-200 text-green-600'>High</span>
                 }
                 {
                   !item.confidence_level && '--'
@@ -381,13 +388,13 @@ return (
                   (typeof item.change_1d === 'number') ? (
                     <>
                       {
-                        item.change_1d < 0 && <span className='text-red-500'>{(item.change_1d * 100).toFixed(2)+ '%'}</span>
+                        item.change_1d < 0 && <span className='text-green-500'>{(item.change_1d * 100).toFixed(2)+ '%'}</span>
                       }
                        {
                         item.change_1d === 0 && <span>--</span>
                       }
                       {
-                        item.change_1d > 0 && <span className='text-green-500'>+{(item.change_1d * 100).toFixed(2)+ '%'}</span>
+                        item.change_1d > 0 && <span className='text-red-500'>+{(item.change_1d * 100).toFixed(2)+ '%'}</span>
                       }
 
                     </>
@@ -395,11 +402,24 @@ return (
                 }
                 </td>
             <td className='py-2 px-6 text-right'>
-              {item.conf_ind_24h === 0 ? '--' : item.conf_ind_24h
-                
-              }
-            
-              
+              {
+                  (item.conf_ind_24h !==0 && item.confidence_level_24h !== '--') ? (
+                    <>
+                      {
+                        'low'===item.confidence_level_24h && 
+                        <div className="w-100 bg-gray-200 rounded-full h-3 dark:bg-gray-700" style={{width: 150}}>
+                          <div className="bg-gradient-to-r from-pink-500/70 to-red-500/70 h-3 rounded-full text-xs font-normal text-white text-center p-0.3 leading-none" style={{width:(item.conf_ind_24h*1.5)}}>{item.conf_ind_24h}</div>
+                        </div>  
+                      }
+                      {
+                        'high'===item.confidence_level_24h && 
+                        <div className="w-100 bg-gray-200 rounded-full h-3 dark:bg-gray-700" style={{width: 150}}>
+                          <div className="bg-gradient-to-r from-lime-500/70 to-green-500/70 h-3 rounded-full text-xs font-normal text-white text-center p-0.3 leading-none" style={{width:item.conf_ind_24h*1.5}}>{item.conf_ind_24h}</div>
+                        </div>  
+                      }
+                    </>
+                  ):'--'
+                }
             </td>
           
             <td className='p-2 text-right rounded-r text-xs'>
@@ -407,13 +427,13 @@ return (
               (typeof item.conf_ind_24h === 'number') ? (
                 <>
                   {
-                    'low' === item.confidence_level_24h && <span className='px-3 py-1 rounded-full bg-green-200 text-green-600'>Low</span>
+                    'low' === item.confidence_level_24h && <span className='px-3 py-1 rounded-full bg-red-200 text-red-600'>Low</span>
                   }
                    {
                     '--' === item.confidence_level_24h && <span>--</span>
                   }
                    {
-                    'high' === item.confidence_level_24h && <span className='px-3 py-1 rounded-full bg-red-200 text-red-600'>High</span>
+                    'high' === item.confidence_level_24h && <span className='px-3 py-1 rounded-full bg-green-200 text-green-600'>High</span>
                   }
                   {
                     !item.confidence_level_24h && '--'
@@ -425,7 +445,22 @@ return (
 
             <td className='py-2 px-6 text-right'>
               {
-                  item.conf_ind_7d === 0 ? '--' : item.conf_ind_7d
+                  (item.conf_ind_7d !==0 && item.confidence_level_7d !== '--') ? (
+                    <>
+                      {
+                        'low'===item.confidence_level_7d && 
+                        <div className="w-100 bg-gray-200 rounded-full h-3 dark:bg-gray-700" style={{width: 150}}>
+                          <div className="bg-gradient-to-r from-pink-500/70 to-red-500/70 h-3 rounded-full text-xs font-normal text-white text-center p-0.3 leading-none" style={{width:(item.conf_ind_7d*1.5)}}>{item.conf_ind_7d}</div>
+                        </div>  
+                      }
+                      {
+                        'high'===item.confidence_level_7d && 
+                        <div className="w-100 bg-gray-200 rounded-full h-3 dark:bg-gray-700" style={{width: 150}}>
+                          <div className="bg-gradient-to-r from-lime-500/70 to-green-500/70 h-3 rounded-full text-xs font-normal text-white text-center p-0.3 leading-none" style={{width:item.conf_ind_7d*1.5}}>{item.conf_ind_7d}</div>
+                        </div>  
+                      }
+                    </>
+                  ):'--'
                 }
               
             </td>
@@ -435,14 +470,15 @@ return (
               (typeof item.conf_ind_7d === 'number') ? (
                 <>
                   {
-                    'low' === item.confidence_level_7d && <span className='px-3 py-1 rounded-full bg-green-200 text-green-600'>Low</span>
+                    'low' === item.confidence_level_7d && <span className='px-3 py-1 rounded-full bg-red-200 text-red-600'>Low</span>
                   }
                    {
-                    'high' === item.confidence_level_7d && <span className='px-3 py-1 rounded-full bg-red-200 text-red-600'>High</span>
+                    'high' === item.confidence_level_7d && <span className='px-3 py-1 rounded-full bg-green-200 text-green-600'>High</span>
                   }
                   {
                     !item.confidence_level_7d && '--'
                   }
+                  
                 </>
               ) : '--'
             }
@@ -502,7 +538,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className='absolute top-20 right-20 w-72 font-serif text-medium font-medium italic bg-clip-text text-transparent bg-gradient-to-r from-violet-500/80 to-fuchsia-500/80'>Last Updated Time: {time}</div>
-            {/* <div className='absolute top-20 right-20 w-72 font-serif text-medium font-medium italic text-rose-400/70'>Last Updated Time: {time}</div> */}
+            {/* <div className='absolute top-20 right-20 w-72 font-serif text-medium font-medium italic text-stone-600'>Last Updated Time: {time}</div> */}
 
             <div className="w-full px-8 py-4 space-y-1">
                 
