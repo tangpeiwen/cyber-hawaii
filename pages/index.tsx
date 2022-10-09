@@ -154,13 +154,13 @@ const DataTable = ({setTime}) => {
                   (item.sudo_offer && typeof item.sudo_arbitrage_profit === 'number') ? (
                     <>
                       {
-                        item.sudo_arbitrage_profit < 0 && <span className='text-green-500'>{item.sudo_arbitrage_profit.toFixed(2)}</span>
+                        item.sudo_arbitrage_profit < 0 && <span className='text-red-500'>{item.sudo_arbitrage_profit.toFixed(2)}</span>
                       }
                        {
                         item.sudo_arbitrage_profit === 0 && <span>{item.sudo_arbitrage_profit.toFixed(2)}</span>
                       }
                       {
-                        item.sudo_arbitrage_profit > 0 && <span className='text-red-500'>+{item.sudo_arbitrage_profit.toFixed(2)}</span>
+                        item.sudo_arbitrage_profit > 0 && <span className='text-green-500'>+{item.sudo_arbitrage_profit.toFixed(2)}</span>
                       }
                     </>
                   ) : '--'
