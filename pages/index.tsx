@@ -237,6 +237,7 @@ type Bluechips = {
   floor: number,
   volume_1d: number,
   change_1d : number,
+  best_offer: number,
   eth_24h: number,
   eth_7d: number,
   weth_24h: number,
@@ -328,8 +329,8 @@ return (
         </th>
         <th className='p-2 text-right w-30'>
             <div className='flex flex-row items-center gap-1 justify-end'>
-              %Change
-              <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'change_1d' ? sort.value : 0} onClick={() => changeSort2('change_1d')} />
+              Best Offer
+              {/* <SortIcon className='w-3 h-3 cursor-pointer' sortValue={sort && sort.key === 'change_1d' ? sort.value : 0} onClick={() => changeSort2('change_1d')} /> */}
             </div>
         </th>
         
@@ -383,7 +384,7 @@ return (
                   <span>{item.volume_1d && item.volume_1d.toFixed(1)}</span>
                 </div>
             </td>
-            <td className='py-2 px-6 text-right'>
+            {/* <td className='py-2 px-6 text-right'>
                 {
                   (typeof item.change_1d === 'number') ? (
                     <>
@@ -400,7 +401,13 @@ return (
                     </>
                   ) : '--'
                 }
-                </td>
+                </td> */}
+            <td className='py-2 px-6 text-right'>
+              <div className='flex flex-row items-center gap-1 justify-end'>
+                  <EthIcon className='w-3.5 h-3.5' />
+                  <span>{item.best_offer && item.best_offer.toFixed(2)}</span>
+                </div>
+              </td>
             <td className='py-2 px-6 text-right'>
               {
                   (item.conf_ind_24h !==0 && item.confidence_level_24h !== '--') ? (
