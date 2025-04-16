@@ -506,7 +506,7 @@ const BeforeAccess = () => {
 
   return (
     <div className='text-center inline-block'>
-      <img src="https://cryptologos.cc/logos/versions/ethereum-eth-logo-animated.gif?v=023" alt="" className='w-32 h-32 mx-auto' />
+      <img src="/ethereum-eth-logo-animated.gif" alt="Ethereum Logo" className='w-32 h-32 mx-auto' />
       <div className='flex flex-row items-center gap-4 mt-12'>
         <button className='bg-blue-500 px-12 py-2 rounded-md text-white font-medium hover:bg-blue-600' onClick={connect}>Connect Wallet</button>
       </div>
